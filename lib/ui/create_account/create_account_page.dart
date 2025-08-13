@@ -6,7 +6,7 @@ import 'package:spotify_clone/domin/app_routes.dart';
 import 'package:spotify_clone/domin/ui_helper.dart';
 import 'package:spotify_clone/ui/custom_widgets/my_custom_rounded_btn.dart';
 
-import '../auth/auth_provider.dart';
+import '../auth/auth_provider.dart' as custom_auth; // <-- alias added
 
 class CreateAccountPage extends StatefulWidget {
   @override
@@ -17,18 +17,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  int selectedIndex= 0;
+  int selectedIndex = 0;
 
-List<Widget> allPages =[];
+  List<Widget> allPages = [];
 
-bool isPP1Selected = false;
-bool isPP2Selected = false;
+  bool isPP1Selected = false;
+  bool isPP2Selected = false;
 
-
-@override
+  @override
   void initState() {
     super.initState();
-    allPages=[
+    allPages = [
       stepOneUi(),
       stepTwoUi(),
       stepThreeUi(),
@@ -49,12 +48,10 @@ bool isPP2Selected = false;
         ),
         leading: InkWell(
           onTap: () {
-            if(selectedIndex>0){
+            if (selectedIndex > 0) {
               selectedIndex--;
-              setState(() {
-
-              });
-            }else{
+              setState(() {});
+            } else {
               Navigator.pop(context);
             }
           },
@@ -71,24 +68,25 @@ bool isPP2Selected = false;
         padding: const EdgeInsets.all(14.0),
         child: Column(
           children: [
-            Expanded(child: SingleChildScrollView(child: allPages[selectedIndex])),
-            mSpacer(
-              mHeight: 21,
-            ),
+            Expanded(
+                child: SingleChildScrollView(
+                    child: allPages[selectedIndex])),
+            mSpacer(mHeight: 21),
             Padding(
-              padding: EdgeInsets.only(bottom: selectedIndex<3 ? 0:43),
+              padding:
+              EdgeInsets.only(bottom: selectedIndex < 3 ? 0 : 43),
               child: MyCustomRoundedBtn(
-                mWidth: selectedIndex<3 ? 100 : 180,
-                  text: selectedIndex<3 ? "Next" : "Create an account",
+                mWidth: selectedIndex < 3 ? 100 : 180,
+                text: selectedIndex < 3 ? "Next" : "Create an account",
                 OnTap: () {
-                  if(selectedIndex<3){
+                  if (selectedIndex < 3) {
                     selectedIndex++;
-                    setState(() {
-
-                    });
-                  }else{
-                    //next screen
-                    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                    setState(() {});
+                  } else {
+                    // Use the aliased provider
+                    final authProvider = Provider.of<custom_auth.AuthProvider>(
+                        context,
+                        listen: false);
                     authProvider.signup(
                       emailController.text.trim(),
                       passwordController.text.trim(),
@@ -106,111 +104,106 @@ bool isPP2Selected = false;
   }
 
   Widget stepOneUi() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            ' What\'s your email?',
-            style: TextStyle(color: Colors.white, fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          TextField(
-            controller: emailController,
-            style: TextStyle(color: Colors.white),
-            cursorColor: Colors.white,
-            decoration: getCreateAccTextFieldDecoration(),
-          ),
-          mSpacer(
-            mHeight: 7,
-          ),
-          Text(
-            '  You will need to confirm this email later.',
-            style: TextStyle(color: Colors.white, fontSize: 11),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        ' What\'s your email?',
+        style: TextStyle(color: Colors.white, fontSize: 25),
+        textAlign: TextAlign.center,
+      ),
+      TextField(
+        controller: emailController,
+        style: TextStyle(color: Colors.white),
+        cursorColor: Colors.white,
+        decoration: getCreateAccTextFieldDecoration(),
+      ),
+      mSpacer(mHeight: 7),
+      Text(
+        '  You will need to confirm this email later.',
+        style: TextStyle(color: Colors.white, fontSize: 11),
+        textAlign: TextAlign.center,
+      ),
+    ],
+  );
 
   Widget stepTwoUi() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            ' Create a password',
-            style: TextStyle(color: Colors.white, fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          TextField(
-            controller: passwordController,
-            obscureText: true,
-            style: TextStyle(color: Colors.white),
-            cursorColor: Colors.white,
-            decoration: getCreateAccTextFieldDecoration(),
-          ),
-          mSpacer(
-            mHeight: 7,
-          ),
-          Text(
-            '  Use atleast 8 characters.',
-            style: TextStyle(color: Colors.white, fontSize: 11),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        ' Create a password',
+        style: TextStyle(color: Colors.white, fontSize: 25),
+        textAlign: TextAlign.center,
+      ),
+      TextField(
+        controller: passwordController,
+        obscureText: true,
+        style: TextStyle(color: Colors.white),
+        cursorColor: Colors.white,
+        decoration: getCreateAccTextFieldDecoration(),
+      ),
+      mSpacer(mHeight: 7),
+      Text(
+        '  Use atleast 8 characters.',
+        style: TextStyle(color: Colors.white, fontSize: 11),
+        textAlign: TextAlign.center,
+      ),
+    ],
+  );
 
   Widget stepThreeUi() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        ' What\'s your gender?',
+        style: TextStyle(color: Colors.white, fontSize: 25),
+        textAlign: TextAlign.center,
+      ),
+      mSpacer(),
+      Wrap(
+        runAlignment: WrapAlignment.spaceEvenly,
+        runSpacing: 11,
+        spacing: 11,
         children: [
-          Text(
-            ' What\'s your gender?',
-            style: TextStyle(color: Colors.white, fontSize: 25),
-            textAlign: TextAlign.center,
+          MyCustomRoundedBtn(
+            OnTap: () {},
+            text: "Female",
+            isOutlined: true,
+            textColor: Colors.white,
+            bgColor: AppColors.primaryColor,
+            mWidth: 100,
+            mHeight: 34,
           ),
-          mSpacer(),
-          Wrap(
-            runAlignment: WrapAlignment.spaceEvenly,
-            runSpacing: 11,
-            spacing: 11,
-            children: [
-              MyCustomRoundedBtn(
-                OnTap: () {},
-                text: "Female",
-                isOutlined: true,
-                textColor: Colors.white,
-                bgColor: AppColors.primaryColor,
-                mWidth: 100,
-                mHeight: 34,
-              ),
-              MyCustomRoundedBtn(
-                OnTap: () {},
-                text: "Male",
-                isOutlined: true,
-                textColor: Colors.white,
-                bgColor: AppColors.primaryColor,
-                mWidth: 100,
-                mHeight: 34,
-              ),
-              MyCustomRoundedBtn(
-                OnTap: () {},
-                text: "Not prefer to say",
-                isOutlined: true,
-                textColor: Colors.white,
-                bgColor: AppColors.primaryColor,
-                mHeight: 34,
-                mWidth: 150,
-              ),
-              MyCustomRoundedBtn(
-                OnTap: () {},
-                text: "Others",
-                isOutlined: true,
-                textColor: Colors.white,
-                bgColor: AppColors.primaryColor,
-                mWidth: 100,
-                mHeight: 34,
-              ),
-
-            ],
-          )
+          MyCustomRoundedBtn(
+            OnTap: () {},
+            text: "Male",
+            isOutlined: true,
+            textColor: Colors.white,
+            bgColor: AppColors.primaryColor,
+            mWidth: 100,
+            mHeight: 34,
+          ),
+          MyCustomRoundedBtn(
+            OnTap: () {},
+            text: "Not prefer to say",
+            isOutlined: true,
+            textColor: Colors.white,
+            bgColor: AppColors.primaryColor,
+            mHeight: 34,
+            mWidth: 150,
+          ),
+          MyCustomRoundedBtn(
+            OnTap: () {},
+            text: "Others",
+            isOutlined: true,
+            textColor: Colors.white,
+            bgColor: AppColors.primaryColor,
+            mWidth: 100,
+            mHeight: 34,
+          ),
         ],
-      );
+      )
+    ],
+  );
 
   Widget stepFourUi() => Expanded(
     child: Column(
@@ -226,54 +219,52 @@ bool isPP2Selected = false;
           cursorColor: Colors.white,
           decoration: getCreateAccTextFieldDecoration(),
         ),
-        mSpacer(
-          mHeight: 7,
-        ),
+        mSpacer(mHeight: 7),
         Text(
           '  This appears on your Spotify profile.',
           style: TextStyle(color: Colors.white, fontSize: 11),
           textAlign: TextAlign.center,
         ),
-        mSpacer( mHeight: 33),
-        Divider(color: AppColors.greyColor, height: 1,),
-        mSpacer( mHeight: 33),
+        mSpacer(mHeight: 33),
+        Divider(color: AppColors.greyColor, height: 1),
+        mSpacer(mHeight: 33),
         Text(
           'By tapping on "Create account", you agree to the Spotify Terms of Use.',
           style: TextStyle(color: Colors.white, fontSize: 13),
           textAlign: TextAlign.center,
         ),
-        mSpacer( mHeight: 33),
+        mSpacer(mHeight: 33),
         Text(
           '   Terms of Use',
           style: TextStyle(color: AppColors.primaryColor, fontSize: 13),
           textAlign: TextAlign.center,
         ),
-        mSpacer( mHeight: 33),
+        mSpacer(mHeight: 33),
         Text(
           'To learn more about how Spotify collect, uses, shares and protects your personal data, please see the spotify Privacy Policy.',
           style: TextStyle(color: Colors.white, fontSize: 13),
           textAlign: TextAlign.center,
         ),
-        mSpacer( mHeight: 33),
+        mSpacer(mHeight: 33),
         Text(
           '   Privacy Policy',
           style: TextStyle(color: AppColors.primaryColor, fontSize: 13),
           textAlign: TextAlign.center,
         ),
-        mSpacer( mHeight: 33),
+        mSpacer(mHeight: 33),
         RadioListTile.adaptive(
-          controlAffinity: ListTileControlAffinity.trailing,
+            controlAffinity: ListTileControlAffinity.trailing,
             title: Text(
               'Please send me news and offers from Spotify.',
               style: TextStyle(color: Colors.white, fontSize: 13),
               textAlign: TextAlign.center,
             ),
-            value: isPP1Selected, groupValue: false, onChanged: (value){
-            isPP1Selected= value!;
-            setState(() {
-
-            });
-        }),
+            value: isPP1Selected,
+            groupValue: false,
+            onChanged: (value) {
+              isPP1Selected = value!;
+              setState(() {});
+            }),
         RadioListTile.adaptive(
             controlAffinity: ListTileControlAffinity.trailing,
             title: Text(
@@ -281,14 +272,12 @@ bool isPP2Selected = false;
               style: TextStyle(color: Colors.white, fontSize: 13),
               textAlign: TextAlign.center,
             ),
-            value: isPP2Selected, groupValue: false, onChanged: (value){
-          isPP2Selected= value!;
-          setState(() {
-
-          });
-        })
-
-
+            value: isPP2Selected,
+            groupValue: false,
+            onChanged: (value) {
+              isPP2Selected = value!;
+              setState(() {});
+            })
       ],
     ),
   );
