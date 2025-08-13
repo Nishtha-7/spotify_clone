@@ -132,8 +132,8 @@ class _DashboardPageState extends State<NowPlayingScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(11),
                                     child: SizedBox(
-                                      height: 370,
-                                      width: 370,
+                                      height: 340,
+                                      width: 340,
                                       child: Image.asset(songProvider.currentSong?.imgPath ?? "assets/images/BTS img.jpeg",
                                         fit: BoxFit.cover,),
                                     ),
@@ -159,7 +159,7 @@ class _DashboardPageState extends State<NowPlayingScreen> {
                                                 overlayShape: SliderComponentShape.noOverlay
                                             ),
                                             child: Slider(
-                                              activeColor: Colors.green,
+                                              activeColor: Colors.white,
                                               thumbColor:Colors.white,
                                               inactiveColor: Colors.white24,
                                               min: 0,
@@ -181,7 +181,7 @@ class _DashboardPageState extends State<NowPlayingScreen> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text("0:38",style: TextStyle(color: Colors.grey, fontSize: 14),),
-                                          Text("-1:18",style: TextStyle(color: Colors.grey, fontSize: 14),),
+                                          Text("3:13",style: TextStyle(color: Colors.grey, fontSize: 14),),
                                         ],
                                       ),
                                     ),

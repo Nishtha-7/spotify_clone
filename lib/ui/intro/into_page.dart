@@ -22,7 +22,7 @@ class IntroPage extends StatelessWidget {
               height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
+                    begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
                       AppColors.blackColor.withOpacity(0.1),
@@ -36,55 +36,70 @@ class IntroPage extends StatelessWidget {
       ),
     );
   }
-  Widget bottomLoginUI(BuildContext context) =>  Container(
-    padding: EdgeInsets.only(bottom: 60),
-    width: double.infinity,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SvgPicture.asset('assets/logo/Logo.svg', width: 50, height: 50,),
-        mSpacer(),
 
-        TextButton(onPressed: (){}, child: Text('Millions of songs.\nFree on Spotify.',style: TextStyle(color: Colors.white, fontSize: 28), textAlign: TextAlign.center,),),
-
-        MyCustomRoundedBtn(
-            text: "Sign up free",
-            bgColor: AppColors.primaryColor,
-            OnTap: (){
-              Navigator.pushNamed(context, AppRoutes.create_account_page);
-            }),
-        SizedBox(
-          height: 11,
+  Widget bottomLoginUI(BuildContext context) => Container(
+        padding: EdgeInsets.only(bottom: 60),
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/logo/Logo.svg',
+              width: 50,
+              height: 50,
+            ),
+            mSpacer(),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Millions of songs.\nFree on Spotify.',
+                style: TextStyle(color: Colors.white, fontSize: 28),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            MyCustomRoundedBtn(
+                text: "Sign up free",
+                bgColor: AppColors.primaryColor,
+                OnTap: () {
+                  Navigator.pushNamed(context, AppRoutes.create_account_page);
+                }),
+            SizedBox(
+              height: 11,
+            ),
+            MyCustomRoundedBtn(
+                isOutlined: true,
+                mIconPath: "assets/logo/Component 37.svg",
+                text: "Continue with Google",
+                bgColor: AppColors.primaryColor,
+                textColor: Colors.white,
+                OnTap: () {}),
+            mSpacer(),
+            MyCustomRoundedBtn(
+                isOutlined: true,
+                mIconPath: "assets/logo/facebook.svg",
+                text: "Continue with Facebook",
+                bgColor: AppColors.primaryColor,
+                textColor: Colors.white,
+                OnTap: () {}),
+            mSpacer(),
+            MyCustomRoundedBtn(
+                isOutlined: true,
+                mIconPath: "assets/logo/Vector.svg",
+                text: "Continue with Apple",
+                bgColor: AppColors.primaryColor,
+                textColor: Colors.white,
+                OnTap: () {}),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.login_page);
+              },
+              child: Text(
+                'Log in',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            )
+          ],
         ),
-        MyCustomRoundedBtn(
-            isOutlined: true,
-            mIconPath:"assets/logo/Component 37.svg" ,
-            text: "Continue with Google",
-            bgColor: AppColors.primaryColor,
-            textColor: Colors.white,
-            OnTap: (){
-            }),
-        mSpacer(),
-        MyCustomRoundedBtn(
-            isOutlined: true,
-            mIconPath:"assets/logo/facebook.svg" ,
-            text: "Continue with Facebook",
-            bgColor: AppColors.primaryColor,
-            textColor: Colors.white,
-            OnTap: (){
-            }),
-        mSpacer(),
-        MyCustomRoundedBtn(
-            isOutlined: true,
-            mIconPath:"assets/logo/Vector.svg" ,
-            text: "Continue with Apple",
-            bgColor: AppColors.primaryColor,
-            textColor: Colors.white,
-            OnTap: (){
-            }),
-        TextButton(onPressed: (){}, child: Text('Log in',style: TextStyle(color: Colors.white, fontSize: 16),),)
-      ],
-    ),
-  );
+      );
 }

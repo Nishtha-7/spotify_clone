@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:spotify_clone/domin/app_colors.dart';
 import 'package:spotify_clone/domin/app_routes.dart';
 import 'package:spotify_clone/domin/ui_helper.dart';
 import 'package:spotify_clone/ui/custom_widgets/my_custom_rounded_btn.dart';
+
+import '../auth/auth_provider.dart';
 
 class CreateAccountPage extends StatefulWidget {
   @override
@@ -11,6 +14,9 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   int selectedIndex= 0;
 
 List<Widget> allPages =[];
@@ -65,7 +71,7 @@ bool isPP2Selected = false;
         padding: const EdgeInsets.all(14.0),
         child: Column(
           children: [
-            allPages[selectedIndex],
+            Expanded(child: SingleChildScrollView(child: allPages[selectedIndex])),
             mSpacer(
               mHeight: 21,
             ),
@@ -82,7 +88,12 @@ bool isPP2Selected = false;
                     });
                   }else{
                     //next screen
-                    Navigator.pushNamed(context, AppRoutes.choose_artist_page);
+                    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                    authProvider.signup(
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                      context,
+                    );
                   }
                 },
               ),
@@ -103,6 +114,7 @@ bool isPP2Selected = false;
             textAlign: TextAlign.center,
           ),
           TextField(
+            controller: emailController,
             style: TextStyle(color: Colors.white),
             cursorColor: Colors.white,
             decoration: getCreateAccTextFieldDecoration(),
@@ -127,6 +139,8 @@ bool isPP2Selected = false;
             textAlign: TextAlign.center,
           ),
           TextField(
+            controller: passwordController,
+            obscureText: true,
             style: TextStyle(color: Colors.white),
             cursorColor: Colors.white,
             decoration: getCreateAccTextFieldDecoration(),
